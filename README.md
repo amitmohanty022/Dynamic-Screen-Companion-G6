@@ -4,7 +4,11 @@
 
 Dynamic Screen Companion is a Python-based application designed to be your intelligent assistant by continuously analyzing your screen content in real-time. It captures screenshots, extracts text using Optical Character Recognition (OCR), and leverages the power of language models (currently Google's Gemini) to provide insightful analysis and feedback. It also features text-to-speech capabilities to communicate findings audibly.
 
-This project utilizes a Flask web interface to allow users to start and stop the screen analysis and view a live preview of the captured screen. While it currently uses Gemini for analysis, it also lays the groundwork for integrating LangChain agents with memory and tools, potentially allowing for more sophisticated and specialized screen analysis tasks in the future.
+This project utilizes a Flask web interface to allow users to start and stop the screen analysis and view a live preview of the captured screen.
+
+## 🔗 Live demo
+
+This app captures **your own screen** and speaks through your speakers, so it runs locally rather than on a hosted website. Follow the installation steps below, then open http://127.0.0.1:5000/. An extended version (FastAPI, demo, tests, Docker) lives in [kirodata/dynamic-screen-companion](https://github.com/amitmohanty022/kirodata/tree/main/dynamic-screen-companion).
 
 ## Features
 
@@ -16,7 +20,6 @@ This project utilizes a Flask web interface to allow users to start and stop the
     * Start and stop the screen capture and analysis.
     * View a live preview of the currently captured screen.
 * **Modular Design:** The codebase is structured with a `ScreenAssistant` class to encapsulate the core logic, making it easier to understand and extend.
-* **Potential for LangChain Integration:** Includes initial setup for LangChain agents with memory and tools, paving the way for more advanced functionalities in future updates.
 * **Environment Variable Management:** Uses `.env` files to securely manage API keys.
 
 ## Technologies Used
@@ -26,19 +29,16 @@ This project utilizes a Flask web interface to allow users to start and stop the
 * Pillow (PIL)
 * pytesseract
 * pyttsx3
-* google-generativeai
+* google-genai (Google Gen AI SDK, model `gemini-3.8-flash` by default)
 * python-dotenv
-* LangChain (optional, for future agent integration)
-* OpenAI (optional, for future LangChain agent integration)
 
 ## Installation
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/YOUR_USERNAME/Dynamic-Screen-Companion.git](https://github.com/YOUR_USERNAME/Dynamic-Screen-Companion.git)
-    cd Dynamic-Screen-Companion
+    git clone https://github.com/amitmohanty022/Dynamic-Screen-Companion-G6.git
+    cd Dynamic-Screen-Companion-G6
     ```
-    *(Replace `YOUR_USERNAME` with your GitHub username and `Dynamic-Screen-Companion` with the actual repository name if different)*
 
 2.  **Install the required Python libraries:**
     ```bash
@@ -47,7 +47,7 @@ This project utilizes a Flask web interface to allow users to start and stop the
     *(It's recommended to create and activate a virtual environment before installing dependencies.)*
 
 3.  **Install Tesseract OCR:**
-    * **Windows:** Download and install Tesseract OCR from [https://tesseract-ocr.github.io/tessdoc/Installation.html](https://tesseract-ocr.github.io/tessdoc/Installation.html). After installation, make sure to update the `pytesseract.pytesseract.tesseract_cmd` variable in the script (`main.py`) to the correct path of your `tesseract.exe` file (e.g., `r'C:\Program Files\Tesseract-OCR\tesseract.exe'`).
+    * **Windows:** Download and install Tesseract OCR from [https://tesseract-ocr.github.io/tessdoc/Installation.html](https://tesseract-ocr.github.io/tessdoc/Installation.html). The default install path `C:\Program Files\Tesseract-OCR\tesseract.exe` is detected automatically. If you installed it elsewhere, set `TESSERACT_CMD` in your `.env` file.
     * **Linux (Debian/Ubuntu):**
         ```bash
         sudo apt update
@@ -64,10 +64,11 @@ This project utilizes a Flask web interface to allow users to start and stop the
     * Add your Google Gemini API key to the `.env` file:
         ```
         GOOGLE_API_KEY=YOUR_GOOGLE_API_KEY
-        # Add your OpenAI API key if you plan to explore LangChain agents
-        # OPENAI_API_KEY=YOUR_OPENAI_API_KEY
+        # optional
+        GEMINI_MODEL=gemini-3.8-flash
+        TESSERACT_CMD=/path/to/tesseract
         ```
-        *(Replace `YOUR_GOOGLE_API_KEY` with your actual Google Gemini API key. You'll need to obtain this from the Google Cloud AI Platform.)*
+        *(Get a Gemini API key from [Google AI Studio](https://aistudio.google.com/apikey).)*
 
 ## Usage
 
@@ -86,7 +87,7 @@ This project utilizes a Flask web interface to allow users to start and stop the
 
 ## Future Enhancements
 
-* **Integration of LangChain Agents:** Fully implement and utilize the LangChain agents for more specialized and context-aware screen analysis. This could involve creating tools for specific tasks like identifying UI elements, reading data from tables, or summarizing articles.
+* **Integration of LangChain Agents:** Add LangChain agents for more specialized and context-aware screen analysis, such as identifying UI elements, reading tables, or summarizing articles.
 * **More Sophisticated Analysis:** Implement more complex prompting and potentially fine-tune language models for better accuracy and more detailed insights.
 * **User Configuration:** Allow users to configure parameters such as the screen capture frequency, analysis verbosity, and preferred voice for text-to-speech.
 * **Selective Region Capture:** Enable users to select a specific region of the screen for analysis instead of the entire screen.
@@ -100,7 +101,7 @@ Contributions to the Dynamic Screen Companion project are welcome! If you have i
 
 ## License
 
-[Specify your project's license here, e.g., MIT License]
+No license file has been added yet.
 
 ## Acknowledgements
 
@@ -108,8 +109,7 @@ Contributions to the Dynamic Screen Companion project are welcome! If you have i
 * The OCR functionality is powered by the Tesseract OCR engine.
 * The text-to-speech functionality is provided by the `pyttsx3` library.
 * The web interface is built using the Flask microframework.
-* The LangChain library provides a framework for building intelligent agents.
 
 ---
 
-**Created by [Your Name/GitHub Username]**
+**Created by [Amit Kumar Mohanty](https://github.com/amitmohanty022)**
